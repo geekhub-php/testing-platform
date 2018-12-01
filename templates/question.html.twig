@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h1>Test form</h1>
+        {{ form_start(questionForm) }}
+        {#{{ form_widget(questionForm) }}#}
+        {{ form_row(questionForm.question) }}
+        {{ form_row(questionForm.type) }}
+
+        <button class="btn btn-primary" type="submit">Create</button>
+        {{ form_end(questionForm) }}
+    </div>
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+
