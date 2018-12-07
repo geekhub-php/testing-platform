@@ -68,30 +68,4 @@ class Answer extends Questions {
 	public function setType( $type ): void {
 		$this->type = $type;
 	}
-
-//	/**
-//	 * @param $type
-//	 *
-//	 * @return array
-//	 */
-//	public function setOptions( $type ) {
-
-//		if( $type === 'text' ) {
-//
-//		}
-//		if( $type === 'radio' ) {
-//
-//		}
-//		if( $type === 'checkbox' ) {
-//
-//		}
-//
-//		return $this->options;
-//	}
-//	/**
-//	 * @param mixed $options
-//	 */
-//	public function getOptions( $options ): void {
-//		$this->options = $options;
-//	}
 }

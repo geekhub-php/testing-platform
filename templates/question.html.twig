@@ -3,25 +3,22 @@
 {% block body %}
     <div class="container">
         {{ form_start(form) }}
-        {{ data.question }}
-        {{ form_row(form.answer) }}
-        {% if form.getChildren['type'] is defined %}
-            {{ form_row(form.type) }}
-        {% endif %}
-
+        {#{{ form_widget(form) }}#}
+        <h1>{{ data.name }}</h1>
+        <ul class="questions">
+            {% for answer in data.answers  %}
+                <li>{{ answer.getQuestion }}</li>
+            {% endfor %}
+        </ul>
+        <ul class="questions">
+        {% for answer in form.answers %}
+            <li>
+                {{ form_row(answer) }}
+            </li>
+        {% endfor %}
+        </ul>
         <button class="btn btn-primary" type="submit">Save</button>
         {{ form_end(form) }}
-
-        {#{{ form_row(form.options) }}#}
-
-        {#{{ form_start(form) }}#}
-        {#<h1>{{ data.name }}</h1>#}
-        {#<ul class="questions">#}
-        {#{% for answerField in form.answers %}#}
-        {#<li>{{ form_row(answerField.) }}</li>#}
-        {#{% endfor %}#}
-        {#</ul>#}
-        {#{{ form_end(form) }}#}
     </div>
 {% endblock %}
 
