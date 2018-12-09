@@ -12,6 +12,7 @@ namespace App\Model;
 use App\Entity\Answer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -21,14 +22,15 @@ class AnswerType extends AbstractType {
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-			->add('question')
 			->addEventListener( FormEvents::PRE_SET_DATA, function ( FormEvent $event ) {
 				$data = $event->getData();
 				$form = $event->getForm();
 				$type = $data->getType();
 				switch ( $type ) {
 					case ( $type == 'text' ):
-						$form->add('answer');
+						$form->add('answer', TextType::class, [
+							'label' => false
+						]);
 						break;
 					case ( $type == 'radio' ):
 						$form->add( 'answer', ChoiceType::class, [

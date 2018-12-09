@@ -52,7 +52,6 @@ class FormController extends AbstractController {
 
 		$form = $this->createForm( FormQuestions::class, $answers );
 		$form->handleRequest( $request );
-//		dump($form);
 
 		if ( $form->isSubmitted() && $form->isValid() ) {
 			$list = $form->getData();
@@ -60,7 +59,6 @@ class FormController extends AbstractController {
 		}
 		return $this->render( 'question.html.twig', [
 			'form' => $form->createView(),
-			'data'         => $answers,
 		] );
 	}
 
