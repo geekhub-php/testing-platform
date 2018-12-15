@@ -5,8 +5,9 @@ namespace App\Controller;
 
 use App\Entity\Answer;
 use App\Entity\AnswerGroup;
+use App\Entity\Question;
 use App\Model\FormQuestions;
-use App\Entity\Questions;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,18 +22,17 @@ class FormController extends AbstractController {
 	 */
 	public function home( Request $request ) {
 
-		$question1 = new Questions;
+		$question1 = new Question;
 		$question1->setQuestion( 'What is you name?' );
-		$question1->setType(Questions::TYPE_TEXT);
+		$question1->setType( Question::TYPE_TEXT );
 
-		$question2 = new Questions;
+		$question2 = new Question;
 		$question2->setQuestion( 'You gender?' );
-		$question2->setType(Questions::TYPE_RADIO);
+		$question2->setType( Question::TYPE_RADIO );
 
-		$question3 = new Questions;
+		$question3 = new Question;
 		$question3->setQuestion( '3 question ... ' );
-		$question3->setType(Questions::TYPE_CHECKBOX);
-
+		$question3->setType( Question::TYPE_CHECKBOX );
 
 		$answer1 = new Answer();
 		$answer2 = new Answer();
@@ -45,9 +45,9 @@ class FormController extends AbstractController {
 		$answer3->setType( $question3->getType() );
 
 		$answers = new AnswerGroup();
-		$answers->setAnswers($answer1);
-		$answers->setAnswers($answer2);
-		$answers->setAnswers($answer3);
+		$answers->addAnswer( $answer1 );
+		$answers->addAnswer( $answer2 );
+		$answers->addAnswer( $answer3 );
 		$answers->setName( 'TODO' );
 
 		$form = $this->createForm( FormQuestions::class, $answers );
@@ -55,8 +55,12 @@ class FormController extends AbstractController {
 
 		if ( $form->isSubmitted() && $form->isValid() ) {
 			$list = $form->getData();
-			dump( $list );
+			$em        = $this->getDoctrine()->getManager();
+			$em->persist($answers);
+			$em->flush();
+			dump( $answers->getAnswers() );
 		}
+
 		return $this->render( 'question.html.twig', [
 			'form' => $form->createView(),
 		] );
