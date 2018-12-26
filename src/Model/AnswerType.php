@@ -19,44 +19,56 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AnswerType extends AbstractType {
-	public function buildForm(FormBuilderInterface $builder, array $options)
-	{
+	public function buildForm( FormBuilderInterface $builder, array $options ) {
 		$builder
 			->addEventListener( FormEvents::PRE_SET_DATA, function ( FormEvent $event ) {
-				$data = $event->getData();
+				/**
+				 * @var Answer $answer
+				 */
+				$answer  = $event->getData();
+				$options = $answer->getOptions();
+				if ( $options != null ) {
+					$options = array_flip($options);
+//					foreach ($options as $option=>$key) {
+//						dump($option);
+//						dump($key);
+//						return $option;
+//					}
+				}
 				$form = $event->getForm();
-				$type = $data->getType();
+				$type = $answer->getType();
 				switch ( $type ) {
-					case ( $type == 'text' ):
-						$form->add('answer', TextType::class, [
+					case ( $type === 'text' ):
+//					case 'text':
+						$form->add( 'answer', TextType::class, [
 							'label' => false
-						]);
-						break;
-					case ( $type == 'radio' ):
-						$form->add( 'answer', ChoiceType::class, [
-							'choices' => [
-								'Male' => 'Male',
-								'Female'  => 'Female'
-							], 'multiple'=>false,'expanded'=>true, 'label' => false
 						] );
 						break;
-					case ( $type == 'checkbox' ):
+					case ( $type === 'radio' ):
+//					case 'radio':
 						$form->add( 'answer', ChoiceType::class, [
-							'choices' => [
-								'Yes'  => 'yes',
-								'No'  => 'no'
-							], 'multiple'=>false,'expanded'=>true, 'label' => false
+							'choices'  => $options,
+							'multiple' => false,
+							'expanded' => true,
+							'label'    => false
+						] );
+						break;
+					case ( $type === 'checkbox' ):
+//					case 'checkbox':
+						$form->add( 'answer', ChoiceType::class, [
+							'choices'  => $options,
+							'multiple' => true,
+							'expanded' => true,
+							'label'    => false
 						] );
 						break;
 				}
-			} )
-		;
+			} );
 	}
 
-	public function configureOptions(OptionsResolver $resolver)
-	{
-		$resolver->setDefaults(array(
+	public function configureOptions( OptionsResolver $resolver ) {
+		$resolver->setDefaults( array(
 			'data_class' => Answer::class,
-		));
+		) );
 	}
 }

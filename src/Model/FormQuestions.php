@@ -3,7 +3,7 @@
 
 namespace App\Model;
 
-use App\Model\AnswerType;
+use App\Entity\AnswerGroup;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,8 +22,7 @@ class FormQuestions extends AbstractType {
 
 	public function configureOptions( OptionsResolver $resolver ) {
 		$resolver->setDefaults( [
-			'data_class' => "App\Entity\AnswerGroup"
-//			'data_class' => AnswerGroup::class
+			'data_class' => AnswerGroup::class
 		] );
 	}
 
