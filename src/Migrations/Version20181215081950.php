@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace DoctrineMigrations;
 
@@ -10,10 +12,10 @@ use Doctrine\Migrations\AbstractMigration;
  */
 final class Version20181215081950 extends AbstractMigration
 {
-    public function up(Schema $schema) : void
+    public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE answer ADD answer_group_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE answer ADD CONSTRAINT FK_DADD4A25D91ED822 FOREIGN KEY (answer_group_id) REFERENCES answer_group (id)');
@@ -23,10 +25,10 @@ final class Version20181215081950 extends AbstractMigration
         $this->addSql('ALTER TABLE answer_group DROP answers_id');
     }
 
-    public function down(Schema $schema) : void
+    public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE answer DROP FOREIGN KEY FK_DADD4A25D91ED822');
         $this->addSql('DROP INDEX IDX_DADD4A25D91ED822 ON answer');
