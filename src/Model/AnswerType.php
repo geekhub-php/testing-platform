@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: admin
- * Date: 06.12.18
- * Time: 21:04
- */
 
 namespace App\Model;
-
 
 use App\Entity\Answer;
 use Symfony\Component\Form\AbstractType;
@@ -28,24 +21,17 @@ class AnswerType extends AbstractType {
 				$answer  = $event->getData();
 				$options = $answer->getOptions();
 				if ( $options != null ) {
-					$options = array_flip($options);
-//					foreach ($options as $option=>$key) {
-//						dump($option);
-//						dump($key);
-//						return $option;
-//					}
+					$options = array_flip( $options );
 				}
 				$form = $event->getForm();
 				$type = $answer->getType();
 				switch ( $type ) {
-					case ( $type === 'text' ):
-//					case 'text':
+					case 'text':
 						$form->add( 'answer', TextType::class, [
 							'label' => false
 						] );
 						break;
-					case ( $type === 'radio' ):
-//					case 'radio':
+					case 'radio':
 						$form->add( 'answer', ChoiceType::class, [
 							'choices'  => $options,
 							'multiple' => false,
@@ -53,8 +39,7 @@ class AnswerType extends AbstractType {
 							'label'    => false
 						] );
 						break;
-					case ( $type === 'checkbox' ):
-//					case 'checkbox':
+					case 'checkbox':
 						$form->add( 'answer', ChoiceType::class, [
 							'choices'  => $options,
 							'multiple' => true,

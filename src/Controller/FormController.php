@@ -88,7 +88,6 @@ class FormController extends AbstractController {
 	/**
 	 * @Route("/show")
 	 */
-
 	public function show() {
 		return $this->render( 'home.html.twig' );
 	}
@@ -96,7 +95,6 @@ class FormController extends AbstractController {
 	/**
 	 * @Route("/test")
 	 */
-
 	public function test() {
 		return $this->render( 'home.html.twig' );
 	}
