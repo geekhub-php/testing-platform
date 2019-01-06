@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        {{ form_start(form) }}
+        <h2>{{ form.vars.value.name }}</h2>
+        <ul class="questions-list">
+            {% for answer in form.answers %}
+                <li class="questions-list_item">
+                    <span class="questions-list_question">{{ answer.vars.value.question }}</span>
+                    {{ form_row((answer.answer)) }}
+                </li>
+            {% endfor %}
+        </ul>
+        <button class="btn btn-primary" type="submit">Save</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+
